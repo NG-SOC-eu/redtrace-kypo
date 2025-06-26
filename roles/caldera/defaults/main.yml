@@ -1,0 +1,6 @@
+caldera_dir: /opt/caldera
+caldera_repo: "https://github.com/mitre/caldera.git"
+caldera_venv: "{{ caldera_dir }}/venv"
+caldera_port: 8888
+vite_url: "http://{{ ansible_default_ipv4.address }}:{{ caldera_port }}"
+

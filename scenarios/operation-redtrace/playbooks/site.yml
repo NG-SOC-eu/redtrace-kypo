@@ -1,0 +1,14 @@
+- hosts: Audit-Control-01
+  become: yes
+  roles:
+    - role: caldera
+
+- hosts: SIEM-Node
+  become: yes
+  roles:
+    - role: wazuh_manager
+
+- hosts: WebServer-01
+  become: yes
+  roles:
+    - role: wazuh_agent

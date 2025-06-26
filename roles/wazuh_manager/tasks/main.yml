@@ -1,0 +1,146 @@
+    # Wazuh
+    - name: Add Wazuh GPG key
+      apt_key:
+        url: "{{ wazuh_gpg_key }}"
+        state: present
+
+    - name: Add Wazuh APT repository
+      apt_repository:
+        repo: "deb {{ wazuh_repo }} stable main"
+        state: present
+
+    - name: Update APT cache
+      apt:
+        update_cache: yes
+
+    - name: Install Wazuh Manager
+      apt:
+        name: wazuh-manager
+        state: present
+
+    # Elasticsearch
+    - name: Download Elasticsearch
+      get_url:
+        url: "{{ elasticsearch_deb }}"
+        dest: /tmp/elasticsearch.deb
+        mode: '0644'
+
+    - name: Install Elasticsearch
+      apt:
+        deb: /tmp/elasticsearch.deb
+
+    - name: Enable and start Elasticsearch
+      service:
+        name: elasticsearch
+        enabled: yes
+        state: started
+
+    # Kibana
+    - name: Download Kibana
+      get_url:
+        url: "{{ kibana_deb }}"
+        dest: /tmp/kibana.deb
+        mode: '0644'
+
+    - name: Install Kibana
+      apt:
+        deb: /tmp/kibana.deb
+
+    - name: Enable and start Kibana
+      service:
+        name: kibana
+        enabled: yes
+        state: started
+
+    - name: Download Wazuh Kibana plugin
+      get_url:
+        url: "{{ wazuh_plugin_url }}"
+        dest: "{{ wazuh_plugin_zip }}"
+        mode: '0644'
+
+    - name: Install Wazuh Kibana plugin
+      shell: "/usr/share/kibana/bin/kibana-plugin install file://{{ wazuh_plugin_zip }}"
+      args:
+        creates: /usr/share/kibana/plugins/wazuh
+      notify: Restart Kibana
+
+    # Logstash
+    - name: Download Logstash
+      get_url:
+        url: "{{ logstash_deb }}"
+        dest: /tmp/logstash.deb
+        mode: '0644'
+
+    - name: Install Logstash
+      apt:
+        deb: /tmp/logstash.deb
+
+    - name: Configure Logstash pipeline
+      copy:
+        dest: /etc/logstash/conf.d/wazuh.conf
+        content: |
+          input {
+            beats {
+              port => 5044
+              codec => "json_lines"
+            }
+          }
+          output {
+            elasticsearch {
+              hosts => ["localhost:9200"]
+              index => "wazuh-alerts-4.x-%{+YYYY.MM.dd}"
+            }
+          }
+      notify: Restart Logstash
+
+    - name: Enable and start Logstash
+      service:
+        name: logstash
+        enabled: yes
+        state: started
+
+    # Filebeat
+    - name: Download Filebeat
+      get_url:
+        url: "{{ filebeat_deb }}"
+        dest: /tmp/filebeat.deb
+        mode: '0644'
+
+    - name: Install Filebeat
+      apt:
+        deb: /tmp/filebeat.deb
+
+    - name: Disable Elasticsearch output in Filebeat config
+      replace:
+        path: /etc/filebeat/filebeat.yml
+        regexp: '^output.elasticsearch:'
+        replace: '#output.elasticsearch:'
+
+    - name: Enable Logstash output
+      replace:
+        path: /etc/filebeat/filebeat.yml
+        regexp: '^#output.logstash:'
+        replace: 'output.logstash:'
+
+    - name: Set Logstash host
+      lineinfile:
+        path: /etc/filebeat/filebeat.yml
+        insertafter: 'output.logstash:'
+        line: '  hosts: ["localhost:5044"]'
+
+    - name: Enable and start Filebeat
+      service:
+        name: filebeat
+        enabled: yes
+        state: started
+
+  handlers:
+    - name: Restart Kibana
+      service:
+        name: kibana
+        state: restarted
+
+    - name: Restart Logstash
+      service:
+        name: logstash
+        state: restarted

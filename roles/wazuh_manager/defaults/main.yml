@@ -1,0 +1,9 @@
+wazuh_repo: https://packages.wazuh.com/4.x/apt/
+wazuh_gpg_key: https://packages.wazuh.com/key/GPG-KEY-WAZUH
+elasticsearch_deb: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.17.9-amd64.deb
+kibana_deb: https://artifacts.elastic.co/downloads/kibana/kibana-7.17.9-amd64.deb
+logstash_deb: https://artifacts.elastic.co/downloads/logstash/logstash-7.17.9-amd64.deb
+filebeat_deb: https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.17.9-amd64.deb
+wazuh_plugin_url: https://packages.wazuh.com/4.x/ui/kibana/wazuh_kibana-4.5.3_7.17.9-1.zip
+wazuh_plugin_zip: /tmp/wazuh_kibana_plugin.zip
+

@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<mxfile host="app.diagrams.net">
+  <diagram name="Operation RedTrace Topology">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="lan" value="Enterprise LAN 172.25.0.0/24" style="ellipse;whiteSpace=wrap;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="300" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="audit" value="Audit-Control-01\nKali Linux\n172.25.0.10" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;" vertex="1" parent="1">
+          <mxGeometry x="50" y="100" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_audit" style="endArrow=none;" edge="1" parent="1" source="audit" target="lan">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="web" value="WebServer-01\nUbuntu 22.04\n172.25.0.20" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;" vertex="1" parent="1">
+          <mxGeometry x="250" y="100" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_web" style="endArrow=none;" edge="1" parent="1" source="web" target="lan">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="file" value="FileServer-01\nWindows Server 2019\n172.25.0.30" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;" vertex="1" parent="1">
+          <mxGeometry x="450" y="100" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_file" style="endArrow=none;" edge="1" parent="1" source="file" target="lan">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="dc" value="DomainController\nWindows Server 2019\n172.25.0.40" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;" vertex="1" parent="1">
+          <mxGeometry x="650" y="100" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_dc" style="endArrow=none;" edge="1" parent="1" source="dc" target="lan">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="siem" value="SIEM-Node\nUbuntu 22.04\n172.25.0.50" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;" vertex="1" parent="1">
+          <mxGeometry x="850" y="100" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge_siem" style="endArrow=none;" edge="1" parent="1" source="siem" target="lan">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
