@@ -3,7 +3,6 @@
     - name: auditcontrol01
       base_box:
         image: kali-linux-2025.1        
-      role: Red Team Operator
       ip: 172.25.0.10
       resources:
         cpu: 2
