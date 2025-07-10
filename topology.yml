@@ -1,7 +1,8 @@
   name: operation-redtrace
   hosts:
     - name: auditcontrol01
-      os: kali-linux-2025.1        
+      base_box:
+        image: kali-linux-2025.1        
       role: Red Team Operator
       ip: 172.25.0.10
       resources:
