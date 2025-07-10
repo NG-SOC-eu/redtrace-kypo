@@ -2,12 +2,12 @@
   hosts:
     - name: auditcontrol01
       base_box:
-        image: kali-linux-2025.1        
+        image: kali        
       flavor: standard.medium
 
     - name: webserver01
       base_box:
-        image: ubuntu-22.04            
+        image: ubuntu-noble-x86_64
       flavor: standard.medium
      
     - name: fileserver01
@@ -22,7 +22,7 @@
       
     - name: siemnode
       base_box:
-        image: ubuntu-22.04
+        image: ubuntu-noble-x86_64
       flavor: standard.large
 
   routers:
