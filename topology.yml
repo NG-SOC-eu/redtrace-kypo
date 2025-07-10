@@ -4,53 +4,26 @@
       base_box:
         image: kali-linux-2025.1        
       flavor: standard.medium
-      software:
-        - mitre-caldera
-        - wireshark
-        - openssh-server
-        - python3-pip
 
     - name: webserver01
       base_box:
         image: ubuntu-22.04            
       flavor: standard.medium
-      software:
-        - apache2
-        - php
-        - mysql-server
-        - openssh-server
-        - legacy-cms (simulated)
      
     - name: fileserver01
       base_box:
         image: windows-server-2019     
       flavor: standard.medium
-      software:
-        - SMB (file sharing)
-        - RDP
-        - PowerShell Remoting
       
     - name: domaincontroller
       base_box:
         image: windows-server-2019     
-      resources:
-        cpu: 2
-        ram: 4096
-      software:
-        - Active Directory Domain Services
-        - DNS
-        - DHCP
+      flavor: standard.medium
       
     - name: siemnode
       base_box:
         image: ubuntu-22.04
       flavor: standard.large
-      software:
-        - wazuh-manager
-        - filebeat
-        - logstash
-        - elasticsearch
-        - kibana
       
   networks:
     - name: enterprisenet
