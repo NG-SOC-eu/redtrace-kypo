@@ -1,4 +1,4 @@
-  name: OperationRedTrace
+  name: operation-redtrace
   version: 1.0
   description: |
     Virtual topology for the "Operation RedTrace" scenario.
