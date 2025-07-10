@@ -3,7 +3,6 @@
     - name: auditcontrol01
       base_box:
         image: kali-linux-2025.1        
-      ip: 172.25.0.10
       resources:
         cpu: 2
         ram: 4096
@@ -14,9 +13,8 @@
         - python3-pip
 
     - name: webserver01
-      os: ubuntu-22.04            
-      role: Vulnerable Web Server
-      ip: 172.25.0.20
+      base_box:
+        image: ubuntu-22.04            
       resources:
         cpu: 2
         ram: 2048
@@ -28,9 +26,8 @@
         - legacy-cms (simulated)
      
     - name: fileserver01
-      os: windows-server-2019     
-      role: File Share (Domain Member)
-      ip: 172.25.0.30
+      base_box:
+        image: windows-server-2019     
       resources:
         cpu: 2
         ram: 4096
@@ -40,9 +37,8 @@
         - PowerShell Remoting
       
     - name: domaincontroller
-      os: windows-server-2019     
-      role: Active Directory Domain Controller
-      ip: 172.25.0.40
+      base_box:
+        image: windows-server-2019     
       resources:
         cpu: 2
         ram: 4096
@@ -52,9 +48,8 @@
         - DHCP
       
     - name: siemnode
-      os: ubuntu-22.04            
-      role: Monitoring & SIEM
-      ip: 172.25.0.50
+      base_box:
+        image: ubuntu-22.04
       resources:
         cpu: 4
         ram: 8192
@@ -69,3 +64,24 @@
     - name: enterprisenet
       cidr: 172.25.0.0/24
       accessible_by_user: true   
+  
+  net_mappings:
+  - host: auditcontrol01
+    network: enterprisenet
+    ip: 172.25.0.10
+
+  - host: webserver01
+    network: enterprisenet
+    ip: 172.25.0.20
+
+  -host: fileserver01
+   network: enterprisenet
+   ip: 172.25.0.30
+
+  - host: domaincontroller
+    network: enterprisenet
+    ip: 172.25.0.40
+
+  - host: siemnode
+    network: enterprisenet
+    ip: 172.25.0.50
