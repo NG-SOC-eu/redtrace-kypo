@@ -74,9 +74,9 @@
     network: enterprisenet
     ip: 172.25.0.20
 
-  -host: fileserver01
-   network: enterprisenet
-   ip: 172.25.0.30
+  - host: fileserver01
+    network: enterprisenet
+    ip: 172.25.0.30
 
   - host: domaincontroller
     network: enterprisenet
