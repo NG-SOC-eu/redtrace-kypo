@@ -1,6 +1,6 @@
   name: operation-redtrace
   hosts:
-    - name: Audit-Control-01
+    - name: AuditControl01
       os: kali-linux-2025.1        
       role: Red Team Operator
       ip: 172.25.0.10
@@ -13,7 +13,7 @@
         - openssh-server
         - python3-pip
 
-    - name: WebServer-01
+    - name: WebServer01
       os: ubuntu-22.04            
       role: Vulnerable Web Server
       ip: 172.25.0.20
@@ -27,7 +27,7 @@
         - openssh-server
         - legacy-cms (simulated)
      
-    - name: FileServer-01
+    - name: FileServer01
       os: windows-server-2019     
       role: File Share (Domain Member)
       ip: 172.25.0.30
@@ -51,7 +51,7 @@
         - DNS
         - DHCP
       
-    - name: SIEM-Node
+    - name: SIEMNode
       os: ubuntu-22.04            
       role: Monitoring & SIEM
       ip: 172.25.0.50
@@ -66,6 +66,6 @@
         - kibana
       
   networks:
-    - name: enterprise_net
+    - name: enterprisenet
       cidr: 172.25.0.0/24
       accessible_by_user: true   
