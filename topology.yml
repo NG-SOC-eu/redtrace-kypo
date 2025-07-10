@@ -1,6 +1,6 @@
   name: operation-redtrace
   hosts:
-    - name: AuditControl01
+    - name: auditcontrol01
       os: kali-linux-2025.1        
       role: Red Team Operator
       ip: 172.25.0.10
@@ -13,7 +13,7 @@
         - openssh-server
         - python3-pip
 
-    - name: WebServer01
+    - name: webserver01
       os: ubuntu-22.04            
       role: Vulnerable Web Server
       ip: 172.25.0.20
@@ -27,7 +27,7 @@
         - openssh-server
         - legacy-cms (simulated)
      
-    - name: FileServer01
+    - name: fileserver01
       os: windows-server-2019     
       role: File Share (Domain Member)
       ip: 172.25.0.30
@@ -39,7 +39,7 @@
         - RDP
         - PowerShell Remoting
       
-    - name: DomainController
+    - name: domaincontroller
       os: windows-server-2019     
       role: Active Directory Domain Controller
       ip: 172.25.0.40
@@ -51,7 +51,7 @@
         - DNS
         - DHCP
       
-    - name: SIEMNode
+    - name: siemnode
       os: ubuntu-22.04            
       role: Monitoring & SIEM
       ip: 172.25.0.50
