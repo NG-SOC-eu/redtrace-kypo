@@ -4,7 +4,7 @@ topology:
   description: |
     Virtual topology for the "Operation RedTrace" scenario.
     Emulates a corporate environment with Windows and Linux machines, an Active Directory domain, and a central SIEM/logging node.
-  nodes:
+  hosts:
     - name: Audit-Control-01
       os: kali-linux-2025.1        # Kali Linux attack platform
       role: Red Team Operator
