@@ -28,7 +28,7 @@
   networks:
     - name: enterprisenet
       cidr: 172.25.0.0/24
-      accessible_by_user: true   
+      accessible_by_user: True
   
   net_mappings:
   - host: auditcontrol01
