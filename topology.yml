@@ -24,6 +24,13 @@
       base_box:
         image: ubuntu-22.04
       flavor: standard.large
+
+  routers:
+    - name: router
+      base_box:
+        image: debian-12-x86_64
+        mgmt_user: debian
+      flavor: standard.small
       
   networks:
     - name: enterprisenet
