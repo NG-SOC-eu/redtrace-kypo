@@ -1,0 +1,81 @@
+topology:
+  name: Operation_RedTrace
+  version: 1.0
+  description: |
+    Virtual topology for the "Operation RedTrace" scenario.
+    Emulates a corporate environment with Windows and Linux machines, an Active Directory domain, and a central SIEM/logging node.
+  nodes:
+    - name: Audit-Control-01
+      os: kali-linux-2025.1        # Kali Linux attack platform
+      role: Red Team Operator
+      ip: 172.25.0.10
+      resources:
+        cpu: 2
+        ram: 4096
+      software:
+        - mitre-caldera
+        - wireshark
+        - openssh-server
+        - python3-pip
+      notes: |
+        Attack VM (Kali) for Red Team. Hosts the Caldera server and offensive tools. Will run APT emulation via Caldera "Sandcat" agents on targets.
+    - name: WebServer-01
+      os: ubuntu-22.04            # Ubuntu 22.04 LTS server
+      role: Vulnerable Web Server
+      ip: 172.25.0.20
+      resources:
+        cpu: 2
+        ram: 2048
+      software:
+        - apache2
+        - php
+        - mysql-server
+        - openssh-server
+        - legacy-cms (simulated)
+      notes: |
+        Simulated vulnerable web server (e.g. running an outdated Joomla CMS). This will be an initial foothold for the attacker (Linux target).
+    - name: FileServer-01
+      os: windows-server-2019     # Windows Server 2019
+      role: File Share (Domain Member)
+      ip: 172.25.0.30
+      resources:
+        cpu: 2
+        ram: 4096
+      software:
+        - SMB (file sharing)
+        - RDP
+        - PowerShell Remoting
+      notes: |
+        Windows file server with shared folders (SMB) for lateral movement simulation. Will be joined to the AD domain.
+    - name: DomainController
+      os: windows-server-2019     # Windows Server 2019
+      role: Active Directory Domain Controller
+      ip: 172.25.0.40
+      resources:
+        cpu: 2
+        ram: 4096
+      software:
+        - Active Directory Domain Services
+        - DNS
+        - DHCP
+      notes: |
+        Active Directory Domain Controller for the enterprise (e.g., domain "redtrace.local"). Manages domain identities and policies.
+    - name: SIEM-Node
+      os: ubuntu-22.04            # Ubuntu 22.04 LTS server
+      role: Monitoring & SIEM
+      ip: 172.25.0.50
+      resources:
+        cpu: 4
+        ram: 8192
+      software:
+        - wazuh-manager
+        - filebeat
+        - logstash
+        - elasticsearch
+        - kibana
+      notes: |
+        Central SIEM node running Wazuh Manager and the Elastic Stack (Elasticsearch, Logstash, Kibana) to collect and analyze logs/alerts from all hosts.
+  networks:
+    - name: enterprise_net
+      cidr: 172.25.0.0/24
+      accessible_by_user: true   # The user can access nodes on this network (e.g., via a jumpbox or direct if allowed)
