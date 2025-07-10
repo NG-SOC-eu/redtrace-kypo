@@ -57,3 +57,8 @@
   - host: siemnode
     network: enterprisenet
     ip: 172.25.0.50
+
+  router_mappings:
+  - router: router
+    network: enterprisenet
+    ip: 172.25.0.1
