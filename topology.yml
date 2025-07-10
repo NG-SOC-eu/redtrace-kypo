@@ -3,9 +3,7 @@
     - name: auditcontrol01
       base_box:
         image: kali-linux-2025.1        
-      resources:
-        cpu: 2
-        ram: 4096
+      flavor: standard.medium
       software:
         - mitre-caldera
         - wireshark
@@ -15,9 +13,7 @@
     - name: webserver01
       base_box:
         image: ubuntu-22.04            
-      resources:
-        cpu: 2
-        ram: 2048
+      flavor: standard.medium
       software:
         - apache2
         - php
@@ -28,9 +24,7 @@
     - name: fileserver01
       base_box:
         image: windows-server-2019     
-      resources:
-        cpu: 2
-        ram: 4096
+      flavor: standard.medium
       software:
         - SMB (file sharing)
         - RDP
@@ -50,9 +44,7 @@
     - name: siemnode
       base_box:
         image: ubuntu-22.04
-      resources:
-        cpu: 4
-        ram: 8192
+      flavor: standard.large
       software:
         - wazuh-manager
         - filebeat
