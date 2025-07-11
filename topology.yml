@@ -4,6 +4,11 @@
       base_box:
         image: kali        
       flavor: standard.medium
+      package:
+        - mitre-caldera
+        - wireshark
+        - openssh-server
+        - python3-pip
 
     - name: webserver01
       base_box:
