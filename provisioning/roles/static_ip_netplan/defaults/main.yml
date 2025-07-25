@@ -1,0 +1,4 @@
+lab_dns1: "10.250.10.101"
+lab_dns2: "10.250.10.132"
+ip_prefix_default: 24
+static_ip: "{{ hostvars[inventory_hostname].ansible_host | default('10.0.0.' ~ (inventory_hostname | regex_replace('[^0-9]', '') | int)) }}"

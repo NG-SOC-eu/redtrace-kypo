@@ -1,0 +1,5 @@
+interface_name: eth1
+connection_name: lab-connection
+dns_servers:
+  - 10.250.10.101
+  - 10.250.10.132

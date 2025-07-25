@@ -1,0 +1,17 @@
+- name: Create Netplan configuration file
+  copy:
+    dest: /etc/netplan/01-netcfg.yaml
+    content: |
+      network:
+        version: 2
+        ethernets:
+          {{ interface_name }}:
+            dhcp4: false
+            addresses:
+              - "{{ static_ip }}"
+            nameservers:
+              addresses: {{ dns_servers }}
+    mode: '0644'
+
+- name: Apply Netplan configuration
+  command: netplan apply

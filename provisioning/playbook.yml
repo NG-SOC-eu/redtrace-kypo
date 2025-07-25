@@ -1,0 +1,40 @@
+- name: Configure static IPs for Linux hosts (except domaincontroller and fileserver01)
+  hosts: "all:!domaincontroller:!fileserver01"
+  become: yes
+  vars_files:
+    - variables.yml
+  roles:
+    - static_ip_netplan
+
+- name: Configure auditcontrol01 with static IP and Caldera
+  hosts: auditcontrol01
+  become: yes
+  vars_files:
+    - variables.yml
+  roles:
+    - static_ip_nmcli
+    - caldera
+
+- name: Configure static IPs for Windows hosts
+  hosts: windows
+  gather_facts: false
+  vars_files:
+    - variables.yml
+  roles:
+    - static_ip_windows
+
+- name: Configure SIEM node with Wazuh manager
+  hosts: siem-node
+  become: yes
+  vars_files:
+    - variables.yml
+  roles:
+    - wazuh_manager
+
+- name: Configure webserver with Wazuh agent
+  hosts: webserver01
+  become: yes
+  vars_files:
+    - variables.yml
+  roles:
+    - wazuh_agent

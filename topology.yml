@@ -1,0 +1,60 @@
+name: operation-redtrace
+hosts:
+  - name: auditcontrol01
+    base_box:
+      image: kali
+      mgmt_user: debian
+    flavor: standard.medium
+  - name: webserver01
+    base_box:
+      image: ubuntu-noble-x86_64
+      mgmt_user: ubuntu
+    flavor: standard.medium
+  - name: fileserver01
+    base_box:
+      image: windows-server-2019
+      mgmt_user: administrator
+      mgmt_protocol: winrm
+    flavor: standard.medium
+  - name: domaincontroller
+    base_box:
+      image: windows-server-2019
+      mgmt_user: windows
+      mgmt_protocol: winrm
+    flavor: standard.medium
+  - name: siem-node
+    base_box:
+      image: ubuntu-noble-x86_64
+      mgmt_user: ubuntu
+    flavor: standard.large
+routers: 
+  - name: router
+    base_box:
+      image: debian-12-x86_64
+      mgmt_user: debian
+    flavor: standard.small
+networks:
+  - name: enterprisenet
+    cidr: 10.0.0.0/24
+    accessible_by_user: true
+net_mappings:
+  - host: auditcontrol01
+    network: enterprisenet
+    ip: 10.0.0.10
+  - host: webserver01
+    network: enterprisenet
+    ip: 10.0.0.20
+  - host: fileserver01
+    network: enterprisenet
+    ip: 10.0.0.30
+  - host: domaincontroller
+    network: enterprisenet
+    ip: 10.0.0.40
+  - host: siem-node
+    network: enterprisenet
+    ip: 10.0.0.50
+router_mappings: 
+  - router: router
+    network: enterprisenet
+    ip: 10.0.0.1
+groups: []

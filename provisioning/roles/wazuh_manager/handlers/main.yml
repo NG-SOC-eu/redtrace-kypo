@@ -1,0 +1,9 @@
+- name: Restart Kibana
+  service:
+    name: kibana
+    state: restarted
+
+- name: Restart Logstash
+  service:
+    name: logstash
+    state: restarted

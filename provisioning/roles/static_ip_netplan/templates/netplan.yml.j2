@@ -1,0 +1,10 @@
+network:
+  version: 2
+  ethernets:
+    eth0:
+      addresses: ["{{ static_ip }}"]
+      nameservers:
+        addresses: ["{{ lab_dns1 }}", "{{ lab_dns2 }}"]
+      routes:
+        - to: default
+          via: 10.0.0.1

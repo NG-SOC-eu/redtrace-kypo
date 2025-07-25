@@ -1,0 +1,78 @@
+all:
+  children:
+    linux:
+      hosts:
+        auditcontrol01:
+          #ansible_host: 192.168.128.119 # e.g., 172.16.21.172
+          ansible_user: kali
+          ansible_ssh_private_key_file: ~/.ssh/id_rsa
+          ansible_ssh_pass: qwerty!23
+          static_ip: 10.0.0.10/24
+          ansible_become: yes
+          ansible_become_method: sudo
+          ansible_become_pass: qwerty!23
+        webserver01:
+          #ansible_host: 192.168.128.223 # e.g., 172.16.21.113
+          ansible_user: ubuntu
+          ansible_ssh_private_key_file: ~/.ssh/id_rsa
+          ansible_ssh_pass: qwerty!23
+          static_ip: 10.0.0.20/24
+          ansible_become: yes
+          ansible_become_method: sudo
+          ansible_become_pass: qwerty!23
+        siem-node:
+          #ansible_host: 192.168.128.104 # e.g., 172.16.21.174
+          ansible_user: ubuntu
+          ansible_ssh_private_key_file: ~/.ssh/id_rsa
+          ansible_ssh_pass: qwerty!23
+          static_ip: 10.0.0.50/24
+          ansible_become: yes
+          ansible_become_method: sudo
+          ansible_become_pass: qwerty!23
+        router:
+          #ansible_host: 192.168.128.195 # e.g., <router-internal-ip>
+          ansible_user: debian
+          ansible_ssh_private_key_file: ~/.ssh/id_rsa
+          ansible_ssh_pass: qwerty!23
+          static_ip: 10.0.0.1/24
+          ansible_become: yes
+          ansible_become_method: sudo
+          ansible_become_pass: qwerty!23
+    windows:
+      hosts:
+        domaincontroller:
+          #ansible_host: 192.168.128.164 # e.g., 172.16.21.114
+          ansible_user: Administrator
+          ansible_password: qwerty!23
+          ansible_connection: winrm
+          ansible_port: 5985
+          ansible_winrm_transport: basic
+          ansible_winrm_server_cert_validation: ignore
+          static_ip: 10.0.0.40/24
+        fileserver01:
+          #ansible_host: 192.168.128.140 # e.g., 172.16.21.189
+          ansible_user: Administrator
+          ansible_password: qwerty!23
+          ansible_connection: winrm
+          ansible_port: 5985
+          ansible_winrm_transport: basic
+          ansible_winrm_server_cert_validation: ignore
+          static_ip: 10.0.0.30/24
+    ad:
+      hosts:
+        domaincontroller:
+          ansible_host: 10.0.0.40
+          ansible_user: Administrator@redtrace.local
+          ansible_password: qwerty!23
+          ansible_connection: winrm
+          ansible_port: 5985
+          ansible_winrm_transport: basic
+          ansible_winrm_server_cert_validation: ignore
+        fileserver01:
+          ansible_host: 10.0.0.30
+          ansible_user: Administrator@redtrace.local
+          ansible_password: qwerty!23
+          ansible_connection: winrm
+          ansible_port: 5985
+          ansible_winrm_transport: basic
+          ansible_winrm_server_cert_validation: ignore

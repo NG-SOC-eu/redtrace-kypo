@@ -1,0 +1,44 @@
+- name: Add Wazuh GPG key
+  apt_key:
+    url: "https://packages.wazuh.com/key/GPG-KEY-WAZUH"
+    state: present
+
+- name: Add Wazuh APT repository
+  apt_repository:
+    repo: "deb https://packages.wazuh.com/4.x/apt/ stable main"
+    filename: wazuh
+    state: present
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install Wazuh agent
+  apt:
+    name: wazuh-agent
+    state: present
+
+- name: Configure manager IP in agent config
+  replace:
+    path: /var/ossec/etc/ossec.conf
+    regexp: '<address>.*</address>'
+    replace: "<address>{{ wazuh_manager_ip }}</address>"
+
+- name: Set custom agent name (optional)
+  replace:
+    path: /var/ossec/etc/ossec.conf
+    regexp: '<agent_name>.*</agent_name>'
+    replace: "<agent_name>{{ agent_name }}</agent_name>"
+
+- name: Register agent with Wazuh manager
+  shell: >
+    /var/ossec/bin/agent-auth -m {{ wazuh_manager_ip }} -p 1515 -A "{{ agent_name }}"
+  register: auth_out
+  failed_when: auth_out.rc not in [0,1]
+
+- name: Enable and start wazuh-agent service
+  service:
+    name: wazuh-agent
+    state: started
+    enabled: yes
